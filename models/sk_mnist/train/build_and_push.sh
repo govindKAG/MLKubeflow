@@ -1,7 +1,7 @@
 VERSION=$1
 REPO=$2
 
-IMAGE=Emotion-analysis-sk
+IMAGE=emotion-analysis-sk
 
 until docker ps; 
 do sleep 3; 
