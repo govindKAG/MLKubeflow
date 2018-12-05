@@ -32,14 +32,14 @@ spec:
     inputs:
       artifacts:
       - name: argo-source
-        path: /src/example-seldon
+        path: /src/MLKubeflow
         git:
-          repo: https://github.com/{{workflow.parameters.github-user}}/example-seldon.git
+          repo: https://github.com/{{workflow.parameters.github-user}}/MLKubeflow.git
           revision: "{{workflow.parameters.github-revision}}"          
     container:
       image: docker:17.10
       command: [sh,-c]
-      args: ["cd /src/example-seldon/models/sk_mnist/train ; ./build_and_push.sh {{workflow.parameters.version}} {{workflow.parameters.docker-user}}"]
+      args: ["cd /src/MLKubeflow/models/sk_mnist/train ; ./build_and_push.sh {{workflow.parameters.version}} {{workflow.parameters.docker-user}}"]
       env:
       - name: DOCKER_HOST               #the docker daemon can be access on the standard port on localhost
         value: 127.0.0.1
@@ -84,7 +84,7 @@ spec:
            spec: 
              containers: 
                - 
-                 image: "{{workflow.parameters.docker-user}}/skmnistclassifier_trainer:{{workflow.parameters.version}}"
+                 image: "{{workflow.parameters.docker-user}}/Emotion-analysis-sk:{{workflow.parameters.version}}"
                  name: "sk-train"
                  imagePullPolicy: Always
                  volumeMounts: 

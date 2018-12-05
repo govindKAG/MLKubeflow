@@ -10,6 +10,8 @@ RUN cd /tmp && \
 RUN mkdir training
 COPY ./create_model.py /training/create_model.py
 COPY ./train.sh /training/train.sh
+COPY ./pos_tweets.txt /training/pos_tweets.txt
+COPY ./neg_tweets.txt /training/neg_tweets.txt
 WORKDIR /training
 
 CMD ["/training/train.sh"]
