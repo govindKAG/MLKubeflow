@@ -7,7 +7,7 @@ spec:
   arguments:
     parameters:
     - name: version
-      value: 0.2
+      value: 2.3
     - name: github-user
       value: kubeflow
     - name: github-revision
@@ -39,7 +39,7 @@ spec:
     container:
       image: docker:17.10
       command: [sh,-c]
-      args: ["cd /src/MLKubeflow/models/sk_mnist/train ; ./build_and_push.sh {{workflow.parameters.version}} {{workflow.parameters.docker-user}}"]
+      args: ["cd /src/MLKubeflow/models/sk_mnist/train ; ls -la ; chmod 777 ./* ; ./build_and_push.sh {{workflow.parameters.version}} {{workflow.parameters.docker-user}}"]
       env:
       - name: DOCKER_HOST               #the docker daemon can be access on the standard port on localhost
         value: 127.0.0.1
@@ -70,7 +70,7 @@ spec:
        apiVersion: "batch/v1"
        kind: "Job"
        metadata: 
-         name: "sk-train"
+         name: "emote-train-new2"
          ownerReferences:
          - apiVersion: argoproj.io/v1alpha1
            kind: Workflow
@@ -80,12 +80,12 @@ spec:
        spec: 
          template: 
            metadata: 
-             name: "sk-train"
+             name: "emote-train-new2"
            spec: 
              containers: 
                - 
-                 image: "{{workflow.parameters.docker-user}}/Emotion-analysis-sk:{{workflow.parameters.version}}"
-                 name: "sk-train"
+                 image: "{{workflow.parameters.docker-user}}/emotion-analysis-sk:{{workflow.parameters.version}}"
+                 name: "emote-train-new2"
                  imagePullPolicy: Always
                  volumeMounts: 
                    - 
