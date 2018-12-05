@@ -1,58 +1,39 @@
-from sklearn.ensemble import RandomForestClassifier
-from sklearn import datasets, metrics
-from sklearn.utils import shuffle
-from sklearn.datasets import fetch_mldata
-from sklearn.externals import joblib
-from six.moves import urllib
+from sklearn.feature_extraction.text import CountVectorizer
+data = []
+data_labels = []
+with open("./pos_tweets.txt") as f:
+    for i in f: 
+        data.append(i) 
+        data_labels.append('pos')
 
-if __name__ == '__main__':
-    try:
-        mnist = fetch_mldata('MNIST original')
-    except:
-        print("Could not download MNIST data from mldata.org, trying alternative...")
+with open("./neg_tweets.txt") as f:
+    for i in f: 
+        data.append(i)
+        data_labels.append('neg')
+vectorizer = CountVectorizer(
+    analyzer = 'word',
+    lowercase = False,
+)
+features = vectorizer.fit_transform(
+    data
+)
+features_nd = features.toarray() # for easy usage
+from sklearn.cross_validation import train_test_split
 
-        # Alternative method to load MNIST, if mldata.org is down
-        from scipy.io import loadmat
-        mnist_alternative_url = "https://github.com/amplab/datascience-sp14/raw/master/lab7/mldata/mnist-original.mat"
-        mnist_path = "./mnist-original.mat"
-        response = urllib.request.urlopen(mnist_alternative_url)
-        with open(mnist_path, "wb") as f:
-            content = response.read()
-            f.write(content)
-        mnist_raw = loadmat(mnist_path)
-        mnist = {
-            "data": mnist_raw["data"].T,
-            "target": mnist_raw["label"][0],
-            "COL_NAMES": ["label", "data"],
-            "DESCR": "mldata.org dataset: mnist-original",
-        }
-        print("Success!")
-
-    #mnist = fetch_mldata('MNIST original', data_home="./mnist_sklearn")
-    # To apply a classifier on this data, we need to flatten the image, to
-    # turn the data in a (samples, feature) matrix:
-    n_samples = len(mnist['data'])
-    data = mnist['data'].reshape((n_samples, -1))
-    targets = mnist['target']
-
-    data,targets = shuffle(data,targets)
-    classifier = RandomForestClassifier(n_estimators=30)
-
-    # We learn the digits on the first half of the digits
-    classifier.fit(data[:n_samples // 2], targets[:n_samples // 2])
-
-    # Now predict the value of the digit on the second half:
-    expected = targets[n_samples // 2:]
-    test_data = data[n_samples // 2:]
-
-    print(classifier.score(test_data, expected))
-
-    predicted = classifier.predict(data[n_samples // 2:])
-
-    print("Classification report for classifier %s:\n%s\n"
-          % (classifier, metrics.classification_report(expected, predicted)))
-    print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
-
-    joblib.dump(classifier, '/data/sk.pkl') 
-
-
+X_train, X_test, y_train, y_test  = train_test_split(
+        features_nd, 
+        data_labels,
+        train_size=0.80, 
+        random_state=1234)
+from sklearn.linear_model import LogisticRegression
+log_model = LogisticRegression()
+log_model = log_model.fit(X=X_train, y=y_train)
+y_pred = log_model.predict(X_test)
+import random
+j = random.randint(0,len(X_test)-7)
+for i in range(j,j+7):
+    print(y_pred[0])
+    ind = features_nd.tolist().index(X_test[i].tolist())
+    print(data[ind].strip())
+from sklearn.metrics import accuracy_score
+print(accuracy_score(y_test, y_pred))

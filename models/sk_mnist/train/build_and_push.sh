@@ -1,7 +1,7 @@
 VERSION=$1
 REPO=$2
 
-IMAGE=skmnistclassifier_trainer
+IMAGE=Emotion-analysis-sk
 
 until docker ps; 
 do sleep 3; 
