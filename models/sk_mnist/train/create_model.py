@@ -40,7 +40,7 @@ print(accuracy_score(y_test, y_pred))
 
 #############
 print('testing custom sentence now')
-prediction = log_model.predict(['this is a very good sentence'])
+prediction = log_model.predict([['this is a very good sentence']])
 print(prediction[0])
 #############
 from sklearn.externals import joblib
