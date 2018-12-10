@@ -37,3 +37,6 @@ for i in range(j,j+7):
     print(data[ind].strip())
 from sklearn.metrics import accuracy_score
 print(accuracy_score(y_test, y_pred))
+
+from sklearn.externals import joblib
+joblib.dump(log_model, '/data/mymodel.pkl')
