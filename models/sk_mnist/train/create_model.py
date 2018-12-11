@@ -32,7 +32,7 @@ y_pred = log_model.predict(X_test)
 import random
 j = random.randint(0,len(X_test)-7)
 for i in range(j,j+7):
-    print(y_pred[0])
+    print(y_pred[i])
     ind = features_nd.tolist().index(X_test[i].tolist())
     print(data[ind].strip())
 from sklearn.metrics import accuracy_score
