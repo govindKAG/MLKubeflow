@@ -17,6 +17,12 @@ vectorizer = CountVectorizer(
 features = vectorizer.fit_transform(
     data
 )
+print("printing features")
+print(features)
+
+print("printing features_nd")
+print(features_nd)
+
 features_nd = features.toarray() # for easy usage
 from sklearn.cross_validation import train_test_split
 
