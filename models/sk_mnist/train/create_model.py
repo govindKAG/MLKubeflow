@@ -20,10 +20,10 @@ features = vectorizer.fit_transform(
 print("printing features")
 print(features)
 
-print("printing features_nd")
-print(features_nd)
 
 features_nd = features.toarray() # for easy usage
+print("printing features_nd")
+print(features_nd)
 from sklearn.cross_validation import train_test_split
 
 X_train, X_test, y_train, y_test  = train_test_split(
