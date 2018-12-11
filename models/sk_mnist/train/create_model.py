@@ -40,7 +40,9 @@ print(accuracy_score(y_test, y_pred))
 
 #############
 print('testing custom sentence now')
-prediction = log_model.predict([['this is a very good sentence']])
+feat = vectorizer.fit_transform(['"this is a really good sentence, i love it."'])
+fnd = feat.toarray()
+prediction = log_model.predict(fnd)
 print(prediction[0])
 #############
 from sklearn.externals import joblib
