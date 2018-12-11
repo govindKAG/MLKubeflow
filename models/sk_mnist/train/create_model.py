@@ -41,6 +41,7 @@ print(accuracy_score(y_test, y_pred))
 #############
 print('testing custom sentence now')
 feat = vectorizer.fit_transform(['"this is a really good sentence, i love it."'])
+print(feat)
 prediction = log_model.predict(feat)
 print(prediction[0])
 #############
