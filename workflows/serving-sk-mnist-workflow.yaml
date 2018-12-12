@@ -38,14 +38,14 @@ spec:
     inputs:
       artifacts:
       - name: argo-source
-        path: /src/example-seldon
+        path: /src/MLKubeflow
         git:
-          repo: https://github.com/{{workflow.parameters.github-user}}/example-seldon.git
+          repo: https://github.com/{{workflow.parameters.github-user}}/MLKubeflow.git
           revision: "{{workflow.parameters.github-revision}}"
     container:
       image: docker:17.10
       command: [sh,-c]
-      args: ["cd /src/example-seldon/models/sk_mnist/runtime ; ./wrap.sh {{workflow.parameters.version}} {{workflow.parameters.docker-user}}"]
+      args: ["cd /src/MLKubeflow/models/sk_mnist/runtime ; ls -la ; chmod 777 ./* ; ./wrap.sh {{workflow.parameters.version}} {{workflow.parameters.docker-user}}"]
       env:
       - name: DOCKER_HOST               #the docker daemon can be access on the standard port on localhost
         value: 127.0.0.1
@@ -77,7 +77,7 @@ spec:
       action: apply             #can be any kubectl action (e.g. create, delete, apply, patch)
       #successCondition: ? 
       manifest: |   #put your kubernetes spec here
-       apiVersion: "machinelearning.seldon.io/v1alpha1"
+       apiVersion: "machinelearning.seldon.io/v1alpha2"
        kind: "SeldonDeployment"
        metadata: 
          labels: 
@@ -92,8 +92,8 @@ spec:
            - 
              annotations: 
                predictor_version: "v1"
-             componentSpec: 
-               spec: 
+             componentSpecs: 
+             - spec: 
                  containers: 
                    - 
                      image: "{{workflow.parameters.docker-user}}/skmnistclassifier_runtime:{{workflow.parameters.version}}"
