@@ -53,3 +53,4 @@ print(prediction[0])
 #############
 from sklearn.externals import joblib
 joblib.dump(log_model, '/data/mymodel.pkl')
+joblib.dump(vectorizer, '/data/vect.pkl')
