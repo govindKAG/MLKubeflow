@@ -1,5 +1,6 @@
 from sklearn.externals import joblib
 from sklearn.feature_extraction.text import CountVectorizer
+import numpy as np
 
 class Emote(object):
     def __init__(self):
@@ -9,6 +10,6 @@ class Emote(object):
     def predict(self,X,feature_names):
         vectorizer = joblib.load('/data/vect.pkl') 
         feat = vectorizer.transform(X[0])
-        return self.clf.predict(feat)
+        return np.asarray([self.clf.predict(feat)[0]])
 
     
