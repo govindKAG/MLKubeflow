@@ -7,6 +7,8 @@ class Emote(object):
         self.clf = joblib.load('/data/mymodel.pkl') 
 
     def predict(self,X,feature_names):
-        return X
+        vectorizer = CountVectorizer(analyzer = 'word',lowercase = False,)
+        feat = vectorizer.transform(X[0])
+        return self.clf.predict(feat)
 
     
