@@ -1,7 +1,7 @@
 from sklearn.externals import joblib
 from sklearn.feature_extraction.text import CountVectorizer
 
-class SkMnist(object):
+class Emote(object):
     def __init__(self):
         #self.class_names = ["class:{}".format(str(i)) for i in range(10)]
         self.clf = joblib.load('/data/mymodel.pkl') 
