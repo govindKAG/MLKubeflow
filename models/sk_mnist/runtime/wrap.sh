@@ -1,7 +1,7 @@
 VERSION=$1
 REPO=$2
 
-IMAGE=skmnistclassifier_runtime
+IMAGE=emote_runtime
 
 export DOCKER_HOST="tcp://127.0.0.1:2375"
 echo "DOCKER_HOST set to $DOCKER_HOST"

@@ -1,4 +1,5 @@
 from sklearn.externals import joblib
+from sklearn.feature_extraction.text import CountVectorizer
 
 class SkMnist(object):
     def __init__(self):
