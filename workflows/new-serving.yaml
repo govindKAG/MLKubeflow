@@ -47,7 +47,7 @@ spec:
     container:
       image: docker:17.10
       command: [sh,-c]
-      args: ["cd /src/MLKubeflow/models/sk_mnist/runtime ; ls -la ; chmod 777 ./* ;export DOCKER_HOST='tcp://127.0.0.1:2375'; apk add --update openssl; wget https://github.com/openshift/source-to-image/releases/download/v1.1.9a/source-to-image-v1.1.9a-40ad911d-linux-amd64.tar.gzi ; tar -zxf source-to-image-v1.1.9a-40ad911d-linux-amd64.tar.gz; until docker ps; do sleep 3; done; ./s2i build . seldonio/seldon-core-s2i-python2 {{workflow.parameters.docker-user}}/{{workflow.parameters.docker-image-name}}:{{workflow.parameters.version}}; docker images; echo $DOCKER_PASSWORD | docker login --username=$DOCKER_USERNAME --password-stdin ; docker push {{workflow.parameters.docker-user}}/{{workflow.parameters.docker-image-name}}:{{workflow.parameters.version}}"]
+      args: ["cd /src/MLKubeflow/models/sk_mnist/runtime ; ls -la ; chmod 777 ./* ;export DOCKER_HOST='tcp://127.0.0.1:2375'; apk add --update openssl;wget https://github.com/openshift/source-to-image/releases/download/v1.1.9a/source-to-image-v1.1.9a-40ad911d-linux-amd64.tar.gz  ; tar -zxf source-to-image-v1.1.9a-40ad911d-linux-amd64.tar.gz; until docker ps; do sleep 3; done; ./s2i build . seldonio/seldon-core-s2i-python2 {{workflow.parameters.docker-user}}/{{workflow.parameters.docker-image-name}}:{{workflow.parameters.version}}; docker images; echo $DOCKER_PASSWORD | docker login --username=$DOCKER_USERNAME --password-stdin ; docker push {{workflow.parameters.docker-user}}/{{workflow.parameters.docker-image-name}}:{{workflow.parameters.version}}"]
       env:
       - name: DOCKER_HOST               #the docker daemon can be access on the standard port on localhost
         value: 127.0.0.1
