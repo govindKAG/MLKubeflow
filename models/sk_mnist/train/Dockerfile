@@ -15,3 +15,8 @@ COPY ./neg_tweets.txt /training/neg_tweets.txt
 WORKDIR /training
 
 CMD ["/training/train.sh"]
+
+# TODO : optimize the size using the following resources
+# https://hackernoon.com/tips-to-reduce-docker-image-sizes-876095da3b34
+# https://www.fromlatest.io/#/
+# https://blog.replicated.com/refactoring-a-dockerfile-for-image-size/
