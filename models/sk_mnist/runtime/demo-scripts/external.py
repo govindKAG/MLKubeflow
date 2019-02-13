@@ -20,4 +20,4 @@ def get_latest_argo_logs(train_job_name):
     
     subprocess.run("kubectl logs  $(kubectl get pods | awk '/{job_name}/ {{print $1;exit}}')".format(job_name = train_job_name), shell=True)
 
-get_latest_argo_logs('emote-trainb2')
+get_latest_argo_logs('emote-trainb11')

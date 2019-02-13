@@ -4,4 +4,4 @@ def get_args():
     with open('sample-args.txt','r') as f:
         for i in f:
             l.append(i.strip().split(':'))
-    print(l)
+    return l

@@ -12,7 +12,7 @@ tranformed_str = '['+','.join(transformed) + ']'
 with open('new-training.yaml', 'r') as f:
     ogfile = yaml.load(f)
 
-ogfile['spec']['templates'][2]['resource']['manifest'] = ogfile['spec']['templates'][2]['resource']['manifest'].format(command='["python -u"]', args=tranformed_str)
+ogfile['spec']['templates'][2]['resource']['manifest'] = ogfile['spec']['templates'][2]['resource']['manifest'].format(command='["python -u create_model.py"]', args=tranformed_str)
 
 
 with open("my_file.yaml", "w") as f:

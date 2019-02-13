@@ -18,6 +18,8 @@ spec:
       value: false
     - name: train-name
       value: emote-train
+    - name: execute-train
+      value: false
     - name: docker-image-name
       value: emotion-analysis-sk
   volumes:
@@ -32,19 +34,20 @@ spec:
         when: "{{workflow.parameters.build-push-image}} == true"
     - - name: train
         template: tfjob
+        when: "{{workflow.parameters.execute-train}} == true"
   - name: build-and-push
     inputs:
       artifacts:
       - name: argo-source
-        path: /src/MLKubeflow
+        path: /src/mldynamic
         git:
-          repo: https://github.com/{{workflow.parameters.github-user}}/MLKubeflow.git
+          repo: https://github.com/{{workflow.parameters.github-user}}/mldynamic.git
           revision: "{{workflow.parameters.github-revision}}"
     container:
       image: docker:17.10
       command: [sh, -c]
-      args: ["cd /src/MLKubeflow/models/sk_mnist/train ; ls -la ; chmod 777 ./* ;\
-          \ until docker ps; do sleep 3; done; docker build --force-rm=true -t {{workflow.parameters.docker-user}}/{{workflow.parameters.docker-image-name}}:{{workflow.parameters.version}}\
+      args: ["cd /src/mldynamic/models/sk_mnist/train ; ls -la ; chmod 777 ./* ; until\
+          \ docker ps; do sleep 3; done; docker build --force-rm=true -t {{workflow.parameters.docker-user}}/{{workflow.parameters.docker-image-name}}:{{workflow.parameters.version}}\
           \ . ;docker images;echo $DOCKER_PASSWORD | docker login --username=$DOCKER_USERNAME\
           \ --password-stdin; docker push {{workflow.parameters.docker-user}}/{{workflow.parameters.docker-image-name}}:{{workflow.parameters.version}}"]
       env:
@@ -93,8 +96,8 @@ spec:
                 - 
                   image: "{{workflow.parameters.docker-user}}/emotion-analysis-sk:{{workflow.parameters.version}}"
                   name: {{workflow.parameters.train-name}}
-                  command: python -u
-                  args: ["--message = new message", "--count=10"]
+                  command: ["python", "-u","create_model.py"]
+                  args: ["--testcases=10"]
                   imagePullPolicy: Always
                   volumeMounts: 
                     - 
