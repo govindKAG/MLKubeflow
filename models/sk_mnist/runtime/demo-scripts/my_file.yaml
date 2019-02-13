@@ -96,7 +96,7 @@ spec:
                 - 
                   image: "{{workflow.parameters.docker-user}}/emotion-analysis-sk:{{workflow.parameters.version}}"
                   name: {{workflow.parameters.train-name}}
-                  command: ["python", "-u","create_model.py"]
+                  command: ["python","-u","create_model.py"]
                   args: ["--testcases=10"]
                   imagePullPolicy: Always
                   volumeMounts: 
