@@ -1,7 +1,7 @@
 import shlex
-def get_args():
+def get_args(argument_file_name):
     l = []
-    with open('sample-args.txt','r') as f:
+    with open(f'{argument_file_name}','r') as f:
         command = f.readline().strip()
         l.append(shlex.split(command))
         for i in f:

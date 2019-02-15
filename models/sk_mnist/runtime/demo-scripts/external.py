@@ -5,7 +5,7 @@ import shlex
 #subprocess.run(shlex.split('argo list'))
 #subprocess.run(shlex.split('kubectl logs emote-trainb2-8xskr -f'))
 
-def get_latest_argo_logs(train_job_name):
+def get_latest_argo_logs(train_job_name, pod_logs=False):
     argo_jobs = subprocess.check_output(shlex.split('argo list'))
     print(type(argo_jobs)) 
     argo_jobs = argo_jobs.decode('utf-8')
@@ -18,6 +18,10 @@ def get_latest_argo_logs(train_job_name):
     print(latest_job)
     subprocess.run(shlex.split(f'argo logs -wf {latest_job}'))
     
-    subprocess.run("kubectl logs  $(kubectl get pods | awk '/{job_name}/ {{print $1;exit}}')".format(job_name = train_job_name), shell=True)
+    if pod_logs is True:
+        subprocess.run("kubectl logs  $(kubectl get pods | awk '/{job_name}/ {{print $1;exit}}')".format(job_name = train_job_name), shell=True)
 
-get_latest_argo_logs('emote-trainb11')
+if __name__ == "__main__":
+    get_latest_argo_logs('emote-trainb11')
+    print("=========================================================================================")
+    get_latest_argo_logs('emote-trainb11', pod_logs=True)
