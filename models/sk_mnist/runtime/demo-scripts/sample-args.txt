@@ -1,2 +1,2 @@
 python -u create_model.py
-testcases:20
+testcases:30
