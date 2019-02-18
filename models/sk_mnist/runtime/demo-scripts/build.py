@@ -17,6 +17,7 @@ def train(template_yaml, yaml_file,docker_user, github_user,train_name, version)
     subprocess.run(f"argo submit {yaml_file} -p build-push-image=false -p execute-train=true -p docker-user={docker_user} -p github-user={github_user} -p train-name={train_name} -p version={version}", shell=True)
     get_latest_argo_logs(train_name, pod_logs=True)
 
-#build('new-training.yaml', 'my_file.yaml', docker_user = 'govindkag', github_user = 'govindKAG', train_name = 'emote-trainb17', version='4.3')
-train('new-training.yaml', 'my_file.yaml', docker_user = 'govindkag', github_user = 'govindKAG', train_name = 'emote-trainb23', version='4.3')
+if __name__== '__main__':
+    #build('new-training.yaml', 'my_file.yaml', docker_user = 'govindkag', github_user = 'govindKAG', train_name = 'emote-trainb17', version='4.3')
+    train('new-training.yaml', 'my_file.yaml', docker_user = 'govindkag', github_user = 'govindKAG', train_name = 'emote-trainb26', version='4.3')
 
