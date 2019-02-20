@@ -1,5 +1,8 @@
 version:
 	figlet -ckt  "nexo v0.5"
+	kubectl version
+	argo version
+	kubectl get nodes
 clean:
 	figlet -ckt  cleaning
 	python3.6 clean.py
@@ -20,3 +23,5 @@ tconf:
 	vim run_train.py
 models:
 	kubectl get sdep
+dash:
+	kubectl get svc | grep grafana
